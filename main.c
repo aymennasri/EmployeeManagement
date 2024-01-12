@@ -42,10 +42,10 @@ int highestSalary(employee *emp, int num)
 
 int main()
 {
-    int n, op;
+    int n = 0, op;
     do
     {
-        printf("\n 1.Add employees.\n 2.Display existant employees details.\n 3.Find the employee with highest salary.\nChoose an option : ");
+        printf("\n 1.Add employees.\n 2.Display existant employees details.\n 3.Find the employee with highest salary.\n 4.Add a new employee on top of existant ones.\nChoose an option : ");
         scanf("%d", &op);
         switch (op)
         {
@@ -72,11 +72,26 @@ int main()
             }
             break;
         case 3:
+            if (n == 0)
+            {
+                printf("\nThere's no employees.\n");
+                break;
+            }
             printf("\nThe highest paid employee is :\n");
             int index = highestSalary(empPtrArr, n);
             display(&empPtrArr[index]);
             break;
+        case 4:
+            if (n == 0)
+            {
+                printf("\nThere's no employees.\n");
+                break;
+            }
+            n++;
+            empPtrArr = realloc(empPtrArr, n * sizeof(employee));
+            input(&empPtrArr[n - 1]);
+            break;
         }
-    } while (op > 0 && op < 4);
+    } while (op > 0 && op < 5);
     return 0;
 }
