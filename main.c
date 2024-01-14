@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct Employee
 {
@@ -40,12 +41,65 @@ int highestSalary(employee *emp, int num)
     return index;
 }
 
+void modify(employee *emp, int num)
+{
+    int index;
+    int found = 0;
+    char name[20];
+    printf("\nWrite the name of the employee : ");
+    scanf("%s", name);
+    for (int i = 0; i < num; i++)
+    {
+        if (strcmp(emp[i].name, name) == 0)
+        {
+            found = 1;
+            index = i;
+            break;
+        }
+    }
+    if (found)
+    {
+        input(&emp[index]);
+        printf("%s's details successfully modified.\n", name);
+    }
+    else
+    {
+        printf("No matches for the name, retry.\n");
+    }
+}
+
+void search(employee *emp, int num)
+{
+    int index;
+    int found = 0;
+    char name[20];
+    printf("\nWrite the name of the employee : ");
+    scanf("%s", name);
+    for (int i = 0; i < num; i++)
+    {
+        if (strcmp(emp[i].name, name) == 0)
+        {
+            found = 1;
+            index = i;
+            break;
+        }
+    }
+    if (found)
+    {
+        display(&emp[index]);
+    }
+    else
+    {
+        printf("No matches for the name, retry.\n");
+    }
+}
+
 int main()
 {
     int n = 0, op;
     do
     {
-        printf("\n 1.Add employees.\n 2.Display existant employees details.\n 3.Find the employee with highest salary.\n 4.Add a new employee on top of existant ones.\nChoose an option : ");
+        printf("\n 1.Add employees.\n 2.Display existant employees details.\n 3.Find the employee with highest salary.\n 4.Add a new employee on top of existant ones.\n 5.Modify an employee's details.\n 6.Search for an employee.\nChoose an option : ");
         scanf("%d", &op);
         switch (op)
         {
@@ -78,8 +132,8 @@ int main()
                 break;
             }
             printf("\nThe highest paid employee is :\n");
-            int index = highestSalary(empPtrArr, n);
-            display(&empPtrArr[index]);
+            int indexSal = highestSalary(empPtrArr, n);
+            display(&empPtrArr[indexSal]);
             break;
         case 4:
             if (n == 0)
@@ -91,7 +145,26 @@ int main()
             empPtrArr = realloc(empPtrArr, n * sizeof(employee));
             input(&empPtrArr[n - 1]);
             break;
+        case 5:
+            if (n == 0)
+            {
+                printf("\nThere's no employees.\n");
+                break;
+            }
+            modify(empPtrArr, n);
+            break;
+        case 6:
+            if (n == 0)
+            {
+                printf("\nThere's no employees.\n");
+                break;
+            }
+            search(empPtrArr, n);
+            break;
+        default:
+            printf("Wrong choice, retry.");
+            break;
         }
-    } while (op > 0 && op < 5);
+    } while (op > 0 && op < 7);
     return 0;
 }
