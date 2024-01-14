@@ -94,12 +94,42 @@ void search(employee *emp, int num)
     }
 }
 
+void increaseSal(employee *emp, int num)
+{
+    int index;
+    int found = 0;
+    char name[20];
+    printf("\nWrite the name of the employee : ");
+    scanf("%s", name);
+    for (int i = 0; i < num; i++)
+    {
+        if (strcmp(emp[i].name, name) == 0)
+        {
+            found = 1;
+            index = i;
+            break;
+        }
+    }
+    if (found)
+    {
+        float perc;
+        printf("Percentage of salary increase : ");
+        scanf("%f", &perc);
+        emp[index].salary += emp[index].salary * (perc / 100);
+        printf("\nIncrease in salary for %s is successful.\n", name);
+    }
+    else
+    {
+        printf("No matches for the name, retry.\n");
+    }
+}
+
 int main()
 {
     int n = 0, op;
     do
     {
-        printf("\n 1.Add employees.\n 2.Display existant employees details.\n 3.Find the employee with highest salary.\n 4.Add a new employee on top of existant ones.\n 5.Modify an employee's details.\n 6.Search for an employee.\nChoose an option : ");
+        printf("\n 1.Add employees.\n 2.Display existant employees details.\n 3.Find the employee with highest salary.\n 4.Add a new employee on top of existant ones.\n 5.Modify an employee's details.\n 6.Search for an employee.\n 7.Increase an employee's salary.\nChoose an option : ");
         scanf("%d", &op);
         switch (op)
         {
@@ -161,10 +191,18 @@ int main()
             }
             search(empPtrArr, n);
             break;
+        case 7:
+            if (n == 0)
+            {
+                printf("\nThere's no employees.\n");
+                break;
+            }
+            increaseSal(empPtrArr, n);
+            break;
         default:
             printf("Wrong choice, retry.");
             break;
         }
-    } while (op > 0 && op < 7);
+    } while (op > 0 && op < 8);
     return 0;
 }
