@@ -6,6 +6,7 @@ typedef struct Employee
 {
     int emp_id;
     char name[20];
+    char sex[2];
     float salary;
 } employee;
 
@@ -15,6 +16,8 @@ void input(employee *emp)
     scanf("%d", &emp->emp_id);
     printf("Name : ");
     scanf("%s", &emp->name);
+    printf("Sex (M/F) : ");
+    scanf("%s", &emp->sex);
     printf("Salary : ");
     scanf("%f", &emp->salary);
 }
@@ -23,6 +26,7 @@ void display(employee *emp)
 {
     printf("Employee ID : %d\n", emp->emp_id);
     printf("Name : %s\n", emp->name);
+    printf("Sex : %s\n", emp->sex);
     printf("Salary : %.2f\n", emp->salary);
 }
 
@@ -124,12 +128,36 @@ void increaseSal(employee *emp, int num)
     }
 }
 
+void summary(employee *emp, int num)
+{
+    float tot = 0, avg = 0;
+    int F = 0, M = 0;
+    for (int i = 0; i < num; i++)
+    {
+        tot += emp[i].salary;
+        avg = tot / num;
+    }
+    for (int i = 0; i < num; i++)
+    {
+        if (strcmp(emp[i].sex, "F") == 0)
+        {
+            F++;
+        }
+        if (strcmp(emp[i].sex, "M") == 0)
+        {
+            M++;
+        }
+    }
+    float ratio = F / M;
+    printf("\nDatabase summary :\n Total number of employees : %d\n Average salary : %.2f\n Total salary : %.2f\n Total number of male employees : %d\n Total number of female employees : %d\n Male/Female ratio : %.2f\n", num, avg, tot, M, F, ratio);
+}
+
 int main()
 {
     int n = 0, op;
     do
     {
-        printf("\n 1.Add employees.\n 2.Display existant employees details.\n 3.Find the employee with highest salary.\n 4.Add a new employee on top of existant ones.\n 5.Modify an employee's details.\n 6.Search for an employee.\n 7.Increase an employee's salary.\nChoose an option : ");
+        printf("\n 1.Add employees.\n 2.Display existant employees details.\n 3.Find the employee with highest salary.\n 4.Add a new employee on top of existant ones.\n 5.Modify an employee's details.\n 6.Search for an employee.\n 7.Increase an employee's salary.\n 8.Database summary.\nChoose an option : ");
         scanf("%d", &op);
         switch (op)
         {
@@ -199,10 +227,13 @@ int main()
             }
             increaseSal(empPtrArr, n);
             break;
+        case 8:
+            summary(empPtrArr, n);
+            break;
         default:
             printf("Wrong choice, retry.");
             break;
         }
-    } while (op > 0 && op < 8);
+    } while (op > 0 && op < 9);
     return 0;
 }
