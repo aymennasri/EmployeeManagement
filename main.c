@@ -157,7 +157,7 @@ int main()
     int n = 0, op;
     do
     {
-        printf("\n 1.Add employees.\n 2.Display existant employees details.\n 3.Find the employee with highest salary.\n 4.Add a new employee on top of existant ones.\n 5.Modify an employee's details.\n 6.Search for an employee.\n 7.Increase an employee's salary.\n 8.Database summary.\nChoose an option : ");
+        printf("\n 1.Add employees.\n 2.Display existent employees details.\n 3.Find the employee with highest salary.\n 4.Add a new employee on top of existent ones.\n 5.Modify an employee's details.\n 6.Search for an employee.\n 7.Increase an employee's salary.\n 8.Database summary.\nChoose an option : ");
         scanf("%d", &op);
         switch (op)
         {
