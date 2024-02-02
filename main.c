@@ -155,6 +155,7 @@ void summary(employee *emp, int num)
 int main()
 {
     int n = 0, op;
+    employee *empPtrArr = NULL;
     do
     {
         printf("\n 1.Add employees.\n 2.Display existent employees details.\n 3.Find the employee with highest salary.\n 4.Add a new employee on top of existent ones.\n 5.Modify an employee's details.\n 6.Search for an employee.\n 7.Increase an employee's salary.\n 8.Database summary.\nChoose an option : ");
@@ -164,7 +165,7 @@ int main()
         case 1:
             printf("\nEnter the number of employees to input : ");
             scanf("%d", &n);
-            employee *empPtrArr = (employee *)malloc(n * sizeof(employee));
+            empPtrArr = (employee *)malloc(n * sizeof(employee));
             if (empPtrArr == NULL)
             {
                 printf("Memory allocation failed.");
@@ -177,6 +178,11 @@ int main()
             }
             break;
         case 2:
+            if (n == 0)
+            {
+                printf("\nThere's no employees.\n");
+                break;
+            }
             for (int i = 0; i < n; i++)
             {
                 printf("\nDetails of employee n%d :\n", i + 1);
@@ -228,6 +234,11 @@ int main()
             increaseSal(empPtrArr, n);
             break;
         case 8:
+            if (n == 0)
+            {
+                printf("\nThere's no employees.\n");
+                break;
+            }
             summary(empPtrArr, n);
             break;
         default:
@@ -235,5 +246,6 @@ int main()
             break;
         }
     } while (op > 0 && op < 9);
+    free(empPtrArr);
     return 0;
 }
